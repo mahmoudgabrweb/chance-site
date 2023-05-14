@@ -10,13 +10,13 @@ return new class extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
-            $table->string("byline");
+            $table->string("header");
             $table->string("title");
-            $table->string("url");
+            $table->string("link")->nullable();
             $table->text("description");
             $table->timestamps();
         });
@@ -27,7 +27,7 @@ return new class extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('sliders');
     }
