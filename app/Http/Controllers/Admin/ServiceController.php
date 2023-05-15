@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Slider;
+use App\Models\Service;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use TCG\Voyager\Facades\Voyager;
 
-class SliderController extends MainController
+class ServiceController extends MainController
 {
     public function __construct()
     {
-        $this->moduleName = "sliders";
-        $this->model = Slider::class;
+        $this->moduleName = "services";
+        $this->model = Service::class;
     }
 
     public function index(): View
@@ -40,15 +40,14 @@ class SliderController extends MainController
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            "header" => "required",
             "title" => "required",
+            "color_code" => "required",
             "description" => "required",
         ]);
 
         $this->model::create([
-            "header" => $request->header,
             "title" => $request->title,
-            "link" => $request->link,
+            "color_code" => $request->color_code,
             "description" => $request->description,
         ]);
 
@@ -71,26 +70,23 @@ class SliderController extends MainController
         $details = $this->model::find($id);
 
         return view("admin.$this->moduleName.edit", compact('dataType', 'details'));
-
     }
 
     public function update(Request $request, int $id): RedirectResponse
     {
         $request->validate([
-            "header" => "required",
             "title" => "required",
+            "color_code" => "required",
             "description" => "required",
         ]);
 
         $this->model::where('id', $id)->update([
-            "header" => $request->header,
             "title" => $request->title,
-            "link" => $request->link,
+            "color_code" => $request->color_code,
             "description" => $request->description,
         ]);
 
         return redirect(route("voyager.$this->moduleName.show", $id));
-
     }
 
     public function destroy(int $id): RedirectResponse
