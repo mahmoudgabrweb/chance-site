@@ -27,7 +27,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            SliderPermissionSeeder::class
+            SliderPermissionSeeder::class,
+            ServicePermissionSeeder::class,
         ]);
     }
 }
