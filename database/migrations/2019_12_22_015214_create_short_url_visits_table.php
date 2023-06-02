@@ -11,7 +11,7 @@ class CreateShortUrlVisitsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('short_url_visits', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -33,7 +33,7 @@ class CreateShortUrlVisitsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('short_url_visits');
     }

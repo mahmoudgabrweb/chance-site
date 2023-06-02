@@ -11,7 +11,7 @@ class UpdateShortURLVisitsTableForVersionTwoZeroZero extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('short_url_visits', function (Blueprint $table) {
             $table->string('referer_url')->after('browser_version')->nullable();
@@ -24,7 +24,7 @@ class UpdateShortURLVisitsTableForVersionTwoZeroZero extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('short_url_visits', function (Blueprint $table) {
             $table->dropColumn(['referer_url', 'device_type']);

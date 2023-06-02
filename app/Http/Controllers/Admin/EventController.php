@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use TCG\Voyager\Facades\Voyager;
 
-class EventController extends Controller
+class EventController extends MainController
 {
     public function __construct()
     {
@@ -42,13 +41,18 @@ class EventController extends Controller
     {
         $request->validate([
             "title" => "required",
-            "color_code" => "required",
+            "start_date" => "required",
+            "end_date" => "required",
+            "address" => "required",
             "description" => "required",
         ]);
 
         $this->model::create([
             "title" => $request->title,
-            "color_code" => $request->color_code,
+            "start_date" => $request->start_date,
+            "end_date" => $request->end_date,
+            "address" => $request->address,
+            "map_url" => $request->map_url,
             "description" => $request->description,
         ]);
 
@@ -77,13 +81,18 @@ class EventController extends Controller
     {
         $request->validate([
             "title" => "required",
-            "color_code" => "required",
+            "start_date" => "required",
+            "end_date" => "required",
+            "address" => "required",
             "description" => "required",
         ]);
 
         $this->model::where('id', $id)->update([
             "title" => $request->title,
-            "color_code" => $request->color_code,
+            "start_date" => $request->start_date,
+            "end_date" => $request->end_date,
+            "address" => $request->address,
+            "map_url" => $request->map_url,
             "description" => $request->description,
         ]);
 

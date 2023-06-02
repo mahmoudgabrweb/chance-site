@@ -12,7 +12,7 @@ class UpdateShortURLTableForVersionTwoZeroZero extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('short_urls', function (Blueprint $table) {
             $table->integer('redirect_status_code')->after('track_visits')->default(301);
@@ -41,7 +41,7 @@ class UpdateShortURLTableForVersionTwoZeroZero extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('short_urls', function (Blueprint $table) {
             $table->dropColumn([

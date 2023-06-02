@@ -11,7 +11,7 @@ class UpdateShortURLTableForVersionThreeZeroZero extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('short_urls', function (Blueprint $table) {
             $table->timestamp('activated_at')->after('track_device_type')->nullable()->default(now());
@@ -24,7 +24,7 @@ class UpdateShortURLTableForVersionThreeZeroZero extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('short_urls', function (Blueprint $table) {
             $table->dropColumn(['activated_at', 'deactivated_at']);
