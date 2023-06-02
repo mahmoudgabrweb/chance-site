@@ -31,16 +31,6 @@
 
                         <div class="panel-body">
 
-                            @if (count($errors) > 0)
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-
                             <div class="row">
                                 <div class="form-group col-md-10">
                                     <label for="title">Title <span class="text-danger">*</span></label>

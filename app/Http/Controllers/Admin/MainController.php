@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Slider;
+use App\Models\Image;
+use App\Services\UploaderService;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\View\View;
+use Illuminate\Http\Request;
 use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Models\DataType;
 
@@ -26,5 +27,15 @@ class MainController extends Controller
         $this->authorize($action, app($dataType->model_name));
 
         return $dataType;
+    }
+
+    final protected function upload(string $referenceType, string $reference_id, string $folderName, Request $request)
+    {
+        $image = $request->file("image");
+        $uploadFileService = new UploaderService();
+        list($isUploaded, $uploadedImage) = $uploadFileService->uploadImage($image, "public/$folderName");
+        if ($isUploaded) {
+            Image::updateOrCreate(["reference_type" => $referenceType, "reference_id" => $reference_id], ["image_title" => $uploadedImage]);
+        }
     }
 }

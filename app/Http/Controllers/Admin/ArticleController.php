@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Article;
+use App\Models\Image;
+use App\Services\UploaderService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -42,6 +44,7 @@ class ArticleController extends MainController
     {
         $request->validate([
             "title" => "required",
+            "image" => "required",
             "body" => "required",
         ]);
 
@@ -72,6 +75,8 @@ class ArticleController extends MainController
 
         $this->model::where('id', $created->id)->update(["short_url" => $shortURL]);
 
+        $this->upload("article", $created->id, "articles", $request);
+
         return redirect(route("voyager.$this->moduleName.index"));
     }
 
@@ -81,6 +86,8 @@ class ArticleController extends MainController
 
         $details = $this->model::find($id);
 
+        $details->image = Image::where("reference_type", "article")->where("reference_id", $id)->first()->image_title;
+
         return view("admin.$this->moduleName.show", compact('dataType', 'details'));
     }
 
@@ -89,6 +96,8 @@ class ArticleController extends MainController
         $dataType = $this->checkPermission('edit');
 
         $details = $this->model::find($id);
+
+        $details->image = Image::where("reference_type", "article")->where("reference_id", $id)->first()->image_title;
 
         return view("admin.$this->moduleName.edit", compact('dataType', 'details'));
     }
@@ -123,6 +132,10 @@ class ArticleController extends MainController
             "short_url" => $shortURL,
             "body" => $request->body
         ]);
+
+        if ($request->file("image")) {
+            $this->upload("article", $id, "articles", $request);
+        }
 
         return redirect(route("voyager.$this->moduleName.show", $id));
     }

@@ -53,8 +53,17 @@
                         <div class="panel-body" style="padding-top:0;">
                             <p>{{ $details->title }}</p>
                         </div>
-
                     </div>
+
+                    <div class="col-md-12">
+                        <div class="panel-heading" style="border-bottom:0;">
+                            <h3 class="panel-title">Image</h3>
+                        </div>
+                        <div class="panel-body" style="padding-top:0;">
+                            <img src="{{ \Illuminate\Support\Facades\Storage::url($details->image) }}" alt="">
+                        </div>
+                    </div>
+
                     <div class="col-md-5">
                         <div class="panel-heading" style="border-bottom:0;">
                             <h3 class="panel-title">Header</h3>

@@ -31,21 +31,28 @@
 
                         <div class="panel-body">
 
-                            @if (count($errors) > 0)
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label for="title">Title <span class="text-danger">*</span></label>
                                     <input type="text" name="title" id="title" class="form-control"
                                            value="{{ $details->title }}">
+                                    @if($errors->has('title'))
+                                        <div class="label label-danger">{{ $errors->first('title') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="title">Image <span class="text-danger">*</span></label>
+                                    <div class="form-group col-md-12">
+                                        <img src="{{ \Illuminate\Support\Facades\Storage::url($details->image) }}"
+                                             style="width: 100px; height: 100px">
+                                    </div>
+                                    <input type="file" name="image" id="image" class="form-control">
+                                    @if($errors->has('image'))
+                                        <div class="label label-danger">{{ $errors->first('image') }}</div>
+                                    @endif
                                 </div>
                             </div>
 
@@ -54,6 +61,9 @@
                                     <label for="body">Body <span class="text-danger">*</span></label>
                                     <textarea name="body" class="form-control"
                                               rows="4">{{ $details->body }}</textarea>
+                                    @if($errors->has('body'))
+                                        <div class="label label-danger">{{ $errors->first('body') }}</div>
+                                    @endif
                                 </div>
                             </div>
 

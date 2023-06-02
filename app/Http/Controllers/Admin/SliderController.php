@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Image;
 use App\Models\Slider;
+use App\Services\UploaderService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -42,15 +44,18 @@ class SliderController extends MainController
         $request->validate([
             "header" => "required",
             "title" => "required",
+            "image" => "required|image",
             "description" => "required",
         ]);
 
-        $this->model::create([
+        $created = $this->model::create([
             "header" => $request->header,
             "title" => $request->title,
             "link" => $request->link,
             "description" => $request->description,
         ]);
+
+        $this->upload("slider", $created->id, "sliders", $request);
 
         return redirect(route("voyager.$this->moduleName.index"));
     }
@@ -61,6 +66,8 @@ class SliderController extends MainController
 
         $details = $this->model::find($id);
 
+        $details->image = Image::where("reference_type", "slider")->where("reference_id", $id)->first()->image_title;
+
         return view("admin.$this->moduleName.show", compact('dataType', 'details'));
     }
 
@@ -69,6 +76,8 @@ class SliderController extends MainController
         $dataType = $this->checkPermission('edit');
 
         $details = $this->model::find($id);
+
+        $details->image = Image::where("reference_type", "slider")->where("reference_id", $id)->first()->image_title;
 
         return view("admin.$this->moduleName.edit", compact('dataType', 'details'));
 
@@ -89,8 +98,11 @@ class SliderController extends MainController
             "description" => $request->description,
         ]);
 
-        return redirect(route("voyager.$this->moduleName.show", $id));
+        if ($request->file("image")) {
+            $this->upload("slider", $id, "sliders", $request);
+        }
 
+        return redirect(route("voyager.$this->moduleName.show", $id));
     }
 
     public function destroy(int $id): RedirectResponse
