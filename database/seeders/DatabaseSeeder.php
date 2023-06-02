@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SliderPermissionSeeder::class,
             ServicePermissionSeeder::class,
+            ArticlePermissionSeeder::class
         ]);
     }
 }

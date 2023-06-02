@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -10,7 +9,7 @@ use Illuminate\View\View;
 use TCG\Voyager\Facades\Voyager;
 use AshAllenDesign\ShortURL\Classes\Builder;
 
-class ArticleController extends Controller
+class ArticleController extends MainController
 {
     public function __construct()
     {
