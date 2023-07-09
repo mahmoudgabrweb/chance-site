@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Article extends Model
 {
@@ -15,5 +16,10 @@ class Article extends Model
     public function createdByUser(): BelongsTo
     {
         return $this->belongsTo(User::class, "created_by", "id");
+    }
+
+    public function images(): MorphOne
+    {
+        return $this->morphOne(Image::class, "reference");
     }
 }

@@ -13,9 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', "FrontController@index");
+Route::get("services", "FrontController@services");
+Route::get("events", "FrontController@events");
+Route::get("articles", "FrontController@articles");
+Route::get("articles/{slug}", "FrontController@articleDetails");
+Route::get("about-us", "FrontController@about");
+Route::get("contact-us", "FrontController@contact");
+Route::get("login", "UserController@login");
+Route::get("profile", "UserController@profile");
+Route::get("book", "UserController@book");
 
 
 Route::group(['prefix' => 'admin'], function () {

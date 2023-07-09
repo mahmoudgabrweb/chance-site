@@ -12,8 +12,8 @@ class Slider extends Model
 
     protected $fillable = ["header", "title", "link", "description"];
 
-    public function gallery(): MorphOne
+    public function images(): MorphOne
     {
-        return $this->morphOne(Gallery::class, "reference");
+        return $this->morphOne(Image::class, "reference");
     }
 }
