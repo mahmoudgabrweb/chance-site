@@ -6,6 +6,9 @@ use App\Models\Article;
 use App\Models\Event;
 use App\Models\Service;
 use App\Models\Slider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class FrontController extends Controller
@@ -41,6 +44,14 @@ class FrontController extends Controller
         return view("front.articles", compact("pageName", "data"));
     }
 
+    public function articleDetails(int $id, string $slug): View
+    {
+        $pageName = "articles";
+        $data['details'] = Article::with("images")->where("id", $id)->first();
+        $data['articles'] = Article::with("images")->where("id", "!=", $id)->orderByDesc("created_at")->limit(6)->get();
+        return view("front.articleDetails", compact("pageName", "data"));
+    }
+
     public function about(): View
     {
         $pageName = "about";
@@ -51,5 +62,24 @@ class FrontController extends Controller
     {
         $pageName = "contact";
         return view("front.contact", compact("pageName"));
+    }
+
+    public function sendMail()
+    {
+        $data = ['name' => "Virat Gandhi"];
+
+        try {
+        Mail::send('front.contact_us_email', $data, function ($message) {
+            $message->to('mhmudhsham8@gmail.com', 'Chance Site')->subject('Chance Site Contact us');
+            $message->from("mahmoudgabr.developer@gmail.com", "Mahmoud Gabrrr");
+//            $message->from($request->email, $request->name);
+        });
+
+        } catch (\Exception $e) {
+            dd("dd");
+        }
+        dd("done");
+
+        return redirect()->back()->with("message", "Email sent successfully.");
     }
 }

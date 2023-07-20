@@ -57,23 +57,23 @@ class ArticleController extends MainController
             "created_by" => auth()->id()
         ]);
 
-        $url = env("APP_URL") . "/articles/$created->id/$slug";
+//        $url = env("APP_URL") . "/articles/$created->id/$slug";
 
-        $builder = new Builder();
-
-        $shortURLObject = $builder->destinationUrl($url)
-            ->trackVisits()
-            ->trackBrowser()
-            ->trackBrowserVersion()
-            ->trackIPAddress()
-            ->trackDeviceType()
-            ->trackOperatingSystem()
-            ->trackRefererURL()
-            ->make();
-
-        $shortURL = $shortURLObject->default_short_url;
-
-        $this->model::where('id', $created->id)->update(["short_url" => $shortURL]);
+//        $builder = new Builder();
+//
+//        $shortURLObject = $builder->destinationUrl($url)
+//            ->trackVisits()
+//            ->trackBrowser()
+//            ->trackBrowserVersion()
+//            ->trackIPAddress()
+//            ->trackDeviceType()
+//            ->trackOperatingSystem()
+//            ->trackRefererURL()
+//            ->make();
+//
+//        $shortURL = $shortURLObject->default_short_url;
+//
+//        $this->model::where('id', $created->id)->update(["short_url" => $shortURL]);
 
         $this->upload("article", $created->id, "articles", $request);
 
@@ -113,23 +113,23 @@ class ArticleController extends MainController
 
         $url = env("APP_URL") . "/articles/$id/$slug";
 
-        $builder = new Builder();
+//        $builder = new Builder();
+//
+//        $shortURLObject = $builder->destinationUrl($url)
+//            ->trackVisits()
+//            ->trackBrowser()
+//            ->trackBrowserVersion()
+//            ->trackIPAddress()
+//            ->trackDeviceType()
+//            ->trackOperatingSystem()
+//            ->trackRefererURL()
+//            ->make();
 
-        $shortURLObject = $builder->destinationUrl($url)
-            ->trackVisits()
-            ->trackBrowser()
-            ->trackBrowserVersion()
-            ->trackIPAddress()
-            ->trackDeviceType()
-            ->trackOperatingSystem()
-            ->trackRefererURL()
-            ->make();
-
-        $shortURL = $shortURLObject->default_short_url;
+//        $shortURL = $shortURLObject->default_short_url;
 
         $this->model::where('id', $id)->update([
             "title" => $request->title,
-            "short_url" => $shortURL,
+            "short_url" => $url,
             "body" => $request->body
         ]);
 

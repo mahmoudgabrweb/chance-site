@@ -33,7 +33,7 @@
 
                 <div class="col-lg-6">
                     <div class="who-we-are-image-wrap">
-                        <img src="{{ url("assets/img/who-we-are/who-we-are-3.png") }}" alt="image">
+                        <img src="{{ url("public/assets/img/who-we-are/who-we-are-3.png") }}" alt="image">
                     </div>
                 </div>
             </div>

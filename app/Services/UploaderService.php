@@ -8,21 +8,27 @@ use Image;
 
 class UploaderService
 {
-    public function uploadImage(UploadedFile $avatarFile, string $path, int $width = 200, int $height = 200): array
+    public function uploadImage(UploadedFile $avatarFile, string $path, bool $applyCut = false, int $width = 200, int $height = 200): array
     {
         $avatarName = $this->generateRandomString() . "_" . time() . "." . $avatarFile->getClientOriginalExtension();
 
-        $avatarImage = Image::make($avatarFile->getRealPath());
+        try {
+            $avatarImage = Image::make($avatarFile->getRealPath());
 
-        $avatarImage->resize($width, $height, function ($constraint) {
-            $constraint->aspectRatio();
-        });
+            if ($applyCut) {
+                $avatarImage->resize($width, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            }
 
-        $avatarImage->stream();
+            $avatarImage->stream();
 
-        $isUploaded = Storage::put("$path/$avatarName", $avatarImage);
+            $isUploaded = Storage::put("$path/$avatarName", $avatarImage);
 
-        return [$isUploaded, $path . "/" . $avatarName];
+            return [$isUploaded, $path . "/" . $avatarName];
+        } catch (\Exception $e) {
+            return [false, ""];
+        }
     }
 
     public function generateRandomString(int $n = 10): string

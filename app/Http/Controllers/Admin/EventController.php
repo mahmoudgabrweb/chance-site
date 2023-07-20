@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Event;
+use App\Models\Image;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use TCG\Voyager\Facades\Voyager;
 
@@ -45,9 +47,10 @@ class EventController extends MainController
             "end_date" => "required",
             "address" => "required",
             "description" => "required",
+            "image" => "required"
         ]);
 
-        $this->model::create([
+        $created = $this->model::create([
             "title" => $request->title,
             "start_date" => $request->start_date,
             "end_date" => $request->end_date,
@@ -55,6 +58,8 @@ class EventController extends MainController
             "map_url" => $request->map_url,
             "description" => $request->description,
         ]);
+
+        $this->upload("event", $created->id, "events", $request);
 
         return redirect(route("voyager.$this->moduleName.index"));
     }
@@ -74,6 +79,8 @@ class EventController extends MainController
 
         $details = $this->model::find($id);
 
+        $details->images = Image::where("reference_type", "event")->where("reference_id", $id)->get();
+
         return view("admin.$this->moduleName.edit", compact('dataType', 'details'));
     }
 
@@ -85,6 +92,7 @@ class EventController extends MainController
             "end_date" => "required",
             "address" => "required",
             "description" => "required",
+            "image" => "required"
         ]);
 
         $this->model::where('id', $id)->update([
@@ -96,6 +104,10 @@ class EventController extends MainController
             "description" => $request->description,
         ]);
 
+        if ($request->file("image")) {
+            $this->upload("event", $id, "events", $request);
+        }
+
         return redirect(route("voyager.$this->moduleName.show", $id));
     }
 
@@ -106,5 +118,14 @@ class EventController extends MainController
         $this->model::destroy($id);
 
         return redirect(route("voyager.$this->moduleName.index"));
+    }
+
+    public function deleteImage(int $eventId, int $imageId): RedirectResponse
+    {
+        $image = Image::where("id", $imageId)->first();
+
+        $image->delete();
+
+        return redirect(route("voyager.$this->moduleName.edit", $eventId))->with("message", "Image has been deleted successfully.");
     }
 }

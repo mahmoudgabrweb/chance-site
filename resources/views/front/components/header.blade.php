@@ -5,8 +5,8 @@
             <div class="main-responsive-menu">
                 <div class="logo">
                     <a href="{{ url("/") }}">
-                        <img src="{{ url("assets/img/logo.jpg") }}" class="black-logo" alt="image">
-                        <img src="{{ url("assets/img/logo.jpg") }}" class="white-logo" alt="image">
+                        <img src="{{ url("public/assets/img/logo.jpg") }}" class="black-logo" alt="image">
+                        <img src="{{ url("public/assets/img/logo.jpg") }}" class="white-logo" alt="image">
                     </a>
                 </div>
             </div>
@@ -17,8 +17,8 @@
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light">
                 <a class="navbar-brand" href="{{ url("/") }}">
-                    <img src="{{ url("assets/img/logo.jpg") }}" class="black-logo" alt="image">
-                    <img src="{{ url("assets/img/logo.jpg") }}" class="white-logo" alt="image">
+                    <img src="{{ url("public/assets/img/logo.jpg") }}" class="black-logo" alt="image">
+                    <img src="{{ url("public/assets/img/logo.jpg") }}" class="white-logo" alt="image">
                 </a>
 
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">

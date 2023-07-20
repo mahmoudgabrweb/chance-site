@@ -43,24 +43,15 @@
                     <h3 class="widgettitle yellow_sketch">Activities</h3>
 
                     <ul class="quick-links">
-                        <li>
-                            <a href="#">Maths Olympiad</a>
-                        </li>
-                        <li>
-                            <a href="#">Art Competition</a>
-                        </li>
-                        <li>
-                            <a href="#">English Novels</a>
-                        </li>
-                        <li>
-                            <a href="#">Science Competition</a>
-                        </li>
-                        <li>
-                            <a href="#">Teachers Day</a>
-                        </li>
-                        <li>
-                            <a href="#">World Kids Day</a>
-                        </li>
+                        @foreach(getServices() as $key => $one)
+                            <li class="activities-content">
+                                <span class="key-section d-none">0{{ ++$key }}</span>
+                                <span class="title-section d-none">{{ $one->title }}</span>
+                                <span class="color-section d-none">{{ $one->color_code }}</span>
+                                <span class="description-section d-none">{{ $one->description }}</span>
+                                <a href="javascript:;" class="activities-btn">{{ $one->title }}</a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -70,86 +61,20 @@
                     <h3 class="widgettitle steelblue_sketch">Photo Gallery</h3>
 
                     <ul class="photo-gallery-list">
-                        <li>
-                            <div class="box">
-                                <a href="{{ url("assets/img/gallery/gallery-1.jpg") }}" class="gallery-btn"
-                                   data-imagelightbox="popup-btn">
-                                    <img src="{{ url("assets/img/footer-gallery/footer-gallery-1.jpg") }}" alt="image">
-                                </a>
-                            </div>
-                        </li>
 
-                        <li>
-                            <div class="box">
-                                <a href="{{ url("assets/img/gallery/gallery-1.jpg") }}" class="gallery-btn"
-                                   data-imagelightbox="popup-btn">
-                                    <img src="{{ url("assets/img/footer-gallery/footer-gallery-2.jpg") }}" alt="image">
-                                </a>
-                            </div>
-                        </li>
+                        @foreach(getGallery() as $image)
+                            <li>
+                                <div class="box">
+                                    <a href="{{ \Illuminate\Support\Facades\Storage::url($image) }}" class="gallery-btn"
+                                       data-imagelightbox="popup-btn">
+                                        <img style="max-height: 90px;"
+                                             src="{{ \Illuminate\Support\Facades\Storage::url($image) }}"
+                                             alt="image">
+                                    </a>
+                                </div>
+                            </li>
+                        @endforeach
 
-                        <li>
-                            <div class="box">
-                                <a href="{{ url("assets/img/gallery/gallery-1.jpg") }}" class="gallery-btn"
-                                   data-imagelightbox="popup-btn">
-                                    <img src="{{ url("assets/img/footer-gallery/footer-gallery-3.jpg") }}" alt="image">
-                                </a>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="box">
-                                <a href="{{ url("assets/img/gallery/gallery-1.jpg") }}" class="gallery-btn"
-                                   data-imagelightbox="popup-btn">
-                                    <img src="{{ url("assets/img/footer-gallery/footer-gallery-4.jpg") }}" alt="image">
-                                </a>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="box">
-                                <a href="{{ url("assets/img/gallery/gallery-1.jpg") }}" class="gallery-btn"
-                                   data-imagelightbox="popup-btn">
-                                    <img src="{{ url("assets/img/footer-gallery/footer-gallery-5.jpg") }}" alt="image">
-                                </a>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="box">
-                                <a href="{{ url("assets/img/gallery/gallery-1.jpg") }}" class="gallery-btn"
-                                   data-imagelightbox="popup-btn">
-                                    <img src="{{ url("assets/img/footer-gallery/footer-gallery-6.jpg") }}" alt="image">
-                                </a>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="box">
-                                <a href="{{ url("assets/img/gallery/gallery-1.jpg") }}" class="gallery-btn"
-                                   data-imagelightbox="popup-btn">
-                                    <img src="{{ url("assets/img/footer-gallery/footer-gallery-1.jpg") }}" alt="image">
-                                </a>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="box">
-                                <a href="{{ url("assets/img/gallery/gallery-1.jpg") }}" class="gallery-btn"
-                                   data-imagelightbox="popup-btn">
-                                    <img src="{{ url("assets/img/footer-gallery/footer-gallery-2.jpg") }}" alt="image">
-                                </a>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="box">
-                                <a href="{{ url("assets/img/gallery/gallery-1.jpg") }}" class="gallery-btn"
-                                   data-imagelightbox="popup-btn">
-                                    <img src="{{ url("assets/img/footer-gallery/footer-gallery-3.jpg") }}" alt="image">
-                                </a>
-                            </div>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -160,8 +85,7 @@
 <!-- Start Copy Right Area -->
 <div class="copyright">
     <div class="container">
-        <p class="copyright-info">© 2023 Chance. All rights reserved.
-        </p>
+        <p class="copyright-info">© 2023 Chance, All rights reserved, Developed by <a style="color: aqua;" href="https://www.linkedin.com/in/mahmoudgabrweb/" target="_blank">Mahmoud Gabr</a></p>
         <div class="footer-links">
             <p>Follow us</p>
             <ul class="social">
@@ -257,23 +181,23 @@
 
 
 <!-- Jquery Slim JS -->
-<script src="{{ url("assets/js/jquery.min.js") }}"></script>
+<script src="{{ url("public/assets/js/jquery.min.js") }}"></script>
 <!-- Bootstrap JS -->
-<script src="{{ url("assets/js/bootstrap.bundle.min.js") }}"></script>
+<script src="{{ url("public/assets/js/bootstrap.bundle.min.js") }}"></script>
 <!-- Meanmenu JS -->
-<script src="{{ url("assets/js/jquery.meanmenu.js") }}"></script>
+<script src="{{ url("public/assets/js/jquery.meanmenu.js") }}"></script>
 <!-- Owl Carousel JS -->
-<script src="{{ url("assets/js/owl.carousel.min.js") }}"></script>
+<script src="{{ url("public/assets/js/owl.carousel.min.js") }}"></script>
 <!-- Magnific Popup JS -->
-<script src="{{ url("assets/js/jquery.magnific-popup.min.js") }}"></script>
+<script src="{{ url("public/assets/js/jquery.magnific-popup.min.js") }}"></script>
 <!-- Imagelightbox JS -->
-<script src="{{ url("assets/js/imagelightbox.min.js") }}"></script>
+<script src="{{ url("public/assets/js/imagelightbox.min.js") }}"></script>
 <!-- Odometer JS -->
-<script src="{{ url("assets/js/odometer.min.js") }}"></script>
+<script src="{{ url("public/assets/js/odometer.min.js") }}"></script>
 <!-- Jquery Appear JS -->
-<script src="{{ url("assets/js/jquery.appear.min.js") }}"></script>
+<script src="{{ url("public/assets/js/jquery.appear.min.js") }}"></script>
 <!-- Custom JS -->
-<script src="{{ url("assets/js/main.js") }}"></script>
+<script src="{{ url("public/assets/js/main.js") }}"></script>
 <script>
     $(document).ready(function () {
         var isDownloadClicked = false;

@@ -65,6 +65,16 @@
 
                             <div class="row">
                                 <div class="form-group col-md-12">
+                                    <label for="title">Image <span class="text-danger">*</span></label>
+                                    <input type="file" name="image[]" id="image" class="form-control" multiple>
+                                    @if($errors->has('image'))
+                                        <div class="label label-danger">{{ $errors->first('image') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-12">
                                     <label for="address">Address <span class="text-danger">*</span></label>
                                     <input type="text" name="address" id="address" class="form-control"
                                            value="{{ old("address") }}">

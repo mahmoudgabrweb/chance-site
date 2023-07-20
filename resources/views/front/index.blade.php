@@ -33,8 +33,9 @@
                                                 alt="image">
 
                                             <div class="banner-image-wrap-shape">
-                                                <img src="{{ url("assets/img/main-banner/main-banner-shape-1.png") }}"
-                                                     alt="image">
+                                                <img
+                                                    src="{{ url("public/assets/img/main-banner/main-banner-shape-1.png") }}"
+                                                    alt="image">
                                             </div>
                                         </div>
                                     </div>
@@ -64,7 +65,7 @@
 
                 <div class="col-lg-6">
                     <div class="who-we-are-image-wrap">
-                        <img src="{{ url("assets/img/who-we-are/who-we-are-3.png") }}" alt="image">
+                        <img src="{{ url("public/assets/img/who-we-are/who-we-are-3.png") }}" alt="image">
                     </div>
                 </div>
             </div>
@@ -136,9 +137,13 @@
                                 <div class="col-md-3">
                                     <div class="event-image">
                                         <a href="{{ generateEventSlug($one->id, $one->title) }}">
-                                            <img
-                                                src="{{ \Illuminate\Support\Facades\Storage::url($one->images[0]->image_title) }}"
-                                                alt="{{ $one->title }}"></a>
+                                            @if(count($one->images) > 0)
+                                                <img
+                                                    src="{{ \Illuminate\Support\Facades\Storage::url($one->images[0]->image_title) }}"
+                                                    alt="{{ $one->title }}">
+                                            @endif
+                                        </a>
+
                                     </div>
                                 </div>
 
@@ -197,83 +202,22 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-gallery-box">
-                        <div class="gallery-inner">
-                            <img src="./assets/img/gallery/gallery-1.jpg" alt="image">
 
-                            <a href="./assets/img/gallery/gallery-1.jpg" class="gallery-btn"
-                               data-imagelightbox="popup-btn">
-                                <i class='bx bx-search-alt'></i>
-                            </a>
+                @foreach(getGallery() as $image)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-gallery-box">
+                            <div class="gallery-inner">
+                                <img style="max-height: 350px;" src="{{ \Illuminate\Support\Facades\Storage::url($image) }}" alt="image">
+
+                                <a href="{{ \Illuminate\Support\Facades\Storage::url($image) }}" class="gallery-btn"
+                                   data-imagelightbox="popup-btn">
+                                    <i class='bx bx-search-alt'></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
 
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-gallery-box">
-                        <div class="gallery-inner">
-                            <img src="./assets/img/gallery/gallery-2.jpg" alt="image">
-
-                            <a href="./assets/img/gallery/gallery-2.jpg" class="gallery-btn"
-                               data-imagelightbox="popup-btn">
-                                <i class='bx bx-search-alt'></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-gallery-box">
-                        <div class="gallery-inner">
-                            <img src="./assets/img/gallery/gallery-3.jpg" alt="image">
-
-                            <a href="./assets/img/gallery/gallery-3.jpg" class="gallery-btn"
-                               data-imagelightbox="popup-btn">
-                                <i class='bx bx-search-alt'></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-gallery-box">
-                        <div class="gallery-inner">
-                            <img src="./assets/img/gallery/gallery-4.jpg" alt="image">
-
-                            <a href="./assets/img/gallery/gallery-4.jpg" class="gallery-btn"
-                               data-imagelightbox="popup-btn">
-                                <i class='bx bx-search-alt'></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-gallery-box">
-                        <div class="gallery-inner">
-                            <img src="./assets/img/gallery/gallery-5.jpg" alt="image">
-
-                            <a href="./assets/img/gallery/gallery-5.jpg" class="gallery-btn"
-                               data-imagelightbox="popup-btn">
-                                <i class='bx bx-search-alt'></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-gallery-box">
-                        <div class="gallery-inner">
-                            <img src="./assets/img/gallery/gallery-6.jpg" alt="image">
-
-                            <a href="./assets/img/gallery/gallery-6.jpg" class="gallery-btn"
-                               data-imagelightbox="popup-btn">
-                                <i class='bx bx-search-alt'></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

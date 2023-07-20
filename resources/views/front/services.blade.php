@@ -55,13 +55,13 @@
 
         <div class="value-shape">
             <div class="shape-1">
-                <img src="./assets/img/value/value-shape-1.png" alt="image">
+                <img src="{{ url("public/assets/img/value/value-shape-1.png") }}" alt="image">
             </div>
             <div class="shape-2">
-                <img src="./assets/img/value/value-shape-2.png" alt="image">
+                <img src="{{ url("public/assets/img/value/value-shape-2.png") }}" alt="image">
             </div>
             <div class="shape-3">
-                <img src="./assets/img/value/value-shape-3.png" alt="image">
+                <img src="{{ url("public/assets/img/value/value-shape-3.png") }}" alt="image">
             </div>
         </div>
     </section>

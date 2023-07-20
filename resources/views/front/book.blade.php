@@ -110,12 +110,9 @@
                             <div class="contact-information">
                                 <h3>If You Need Any Help ?!</h3>
                                 <ul class="contact-list">
-                                    <li><i class='bx bx-map'></i> Location: <span>123 king Street, UAE</span></li>
-                                    <li><i class='bx bx-phone-call'></i> Call Us: <a href="tel:+01321654214">+01 321 654
-                                            214</a></li>
-                                    <li><i class='bx bx-envelope'></i> Email Us: <a href="#">info@chance.com</a></li>
-                                    <li><i class='bx bx-phone-incoming'></i> Fax: <a
-                                            href="tel:+123456789">+123456789</a></li>
+                                    <li><i class='bx bx-map'></i> Location: <span>{{ setting("site.address") }}</span></li>
+                                    <li><i class='bx bx-phone-call'></i> Call Us: <a href="tel:{{ setting("site.phone") }}">{{ setting("site.phone") }}</a></li>
+                                    <li><i class='bx bx-envelope'></i> Email Us: <a href="#">{{ setting("site.email") }}</a></li>
                                 </ul>
                             </div>
                         </div>

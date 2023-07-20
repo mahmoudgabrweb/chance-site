@@ -66,6 +66,29 @@
 
                             <div class="row">
                                 <div class="form-group col-md-12">
+                                    <label for="title">Image <span class="text-danger">*</span></label>
+                                    <div class="form-group col-md-12">
+                                        @foreach($details->images as $image)
+                                            <div class="img_settings_container" data-field-name="image"
+                                                 style="float:left;padding-right:15px;">
+                                                <a href="javascript:;" class="voyager-x remove-multi-image"
+                                                   style="position: absolute;" data-id="{{ $image->id }}"></a>
+                                                <img
+                                                    src="{{ \Illuminate\Support\Facades\Storage::url($image->image_title) }}"
+                                                    data-file-name="{{ $image->image_title }}"
+                                                    style="max-width:100px; height:auto; clear:both; display:block; padding:2px; border:1px solid #ddd; margin-bottom:5px;">
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <input type="file" name="image[]" id="image" class="form-control" multiple>
+                                    @if($errors->has('image'))
+                                        <div class="label label-danger">{{ $errors->first('image') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-12">
                                     <label for="address">Address <span class="text-danger">*</span></label>
                                     <input type="text" name="address" id="address" class="form-control"
                                            value="{{ $details->address }}">
@@ -111,4 +134,41 @@
             </div>
         </div>
     </div>
+
+    <div class="modal modal-danger fade" tabindex="-1" id="delete_modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="{{ __('voyager::generic.close') }}"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title"><i
+                            class="voyager-trash"></i> {{ __('voyager::generic.delete_question') }} image
+                        ?</h4>
+                </div>
+                <div class="modal-footer">
+                    <form action="#" id="delete_form" method="POST">
+                        {{ method_field('DELETE') }}
+                        {{ csrf_field() }}
+                        <input type="submit" class="btn btn-danger pull-right delete-confirm"
+                               value="{{ __('voyager::generic.delete_confirm') }}">
+                    </form>
+                    <button type="button" class="btn btn-default pull-right"
+                            data-dismiss="modal">{{ __('voyager::generic.cancel') }}</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+@stop
+
+@section("javascript")
+    <script type="text/javascript">
+        $(document).on("click", ".remove-multi-image", function (e) {
+            e.preventDefault();
+            let baseUrl = "{{ env("APP_URL") }}"
+            let eventId = "{{ $details->id }}";
+            $('#delete_form')[0].action = `${baseUrl}/admin/events/delete-event-image/${eventId}/` + $(this).data('id');
+            $('#delete_modal').modal('show');
+        });
+    </script>
 @stop

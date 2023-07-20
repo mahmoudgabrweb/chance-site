@@ -32,10 +32,23 @@ class MainController extends Controller
     final protected function upload(string $referenceType, string $reference_id, string $folderName, Request $request)
     {
         $image = $request->file("image");
+
         $uploadFileService = new UploaderService();
-        list($isUploaded, $uploadedImage) = $uploadFileService->uploadImage($image, "public/$folderName");
-        if ($isUploaded) {
-            Image::updateOrCreate(["reference_type" => $referenceType, "reference_id" => $reference_id], ["image_title" => $uploadedImage]);
+
+        $folderName = env("APP_ENV") === "local" ? "public/$folderName" : $folderName;
+
+        if (is_array($image)) {
+            foreach ($image as $one) {
+                list($isUploaded, $uploadedImage) = $uploadFileService->uploadImage($one, $folderName);
+                if ($isUploaded) {
+                    Image::create(["reference_type" => $referenceType, "reference_id" => $reference_id, "image_title" => $uploadedImage]);
+                }
+            }
+        } else {
+            list($isUploaded, $uploadedImage) = $uploadFileService->uploadImage($image, $folderName);
+            if ($isUploaded) {
+                Image::updateOrCreate(["reference_type" => $referenceType, "reference_id" => $reference_id], ["image_title" => $uploadedImage]);
+            }
         }
     }
 }
